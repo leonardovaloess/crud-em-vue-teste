@@ -37,28 +37,28 @@ const deleteProductById = async (id) => {
         <tr>
           <th scope="row">{{ product.id }}</th>
           <td>{{ product.name }}</td>
-          <td>{{ product.price }}</td>
+          <td>R$ {{ product.price }}</td>
           <td>{{ product.inStock }}</td>
           <td>
             <button
-              class="btn btn-danger mt-0 p-0 w-100"
+              class="btn btn-danger tablebtns"
               v-on:click="
                 async () => {
                   await deleteProductById(product.id)
                 }
               "
             >
-              deletar
+              <i class="bi bi-trash-fill"></i>
             </button>
           </td>
           <td>
             <button
               type="button"
-              class="btn btn-primary mt-0 p-0 w-100"
+              class="btn btn-primary tablebtns"
               data-bs-toggle="modal"
               :data-bs-target="`#edit-modal-${product.id}`"
             >
-              editar
+              <i class="bi bi-pencil-square"></i>
             </button>
             <BaseModal :product="product" />
           </td>
@@ -78,9 +78,8 @@ thead {
   background-color: black;
 }
 
-button {
-  background-color: rgba(0, 0, 0, 0.226);
-  width: 30px;
+.tablebtns {
+  width: 27px;
   border: none;
   font-size: 1rem;
   padding: 0;

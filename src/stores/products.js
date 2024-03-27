@@ -17,6 +17,7 @@ export const useProductsStore = defineStore({
         const res = await api.projects.getProducts()
         this.productsArr = res.data
         console.log(res)
+        return res
       } catch (error) {
         console.log('Erro ao fazer get. ', error)
       }

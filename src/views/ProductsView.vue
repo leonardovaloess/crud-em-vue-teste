@@ -25,8 +25,6 @@ const onSubmit = async (ev) => {
     name: productName.value,
     price: parseFloat(productPrice.value),
     inStock: parseFloat(productStock.value),
-    description: 'teste',
-    imageUrl: 'teste'
   }
 
   if (productName.value === '' || productPrice.value === 0 || productStock.value === 0) {
@@ -78,7 +76,7 @@ onMounted(async () => {
         :first-value="productStock"
       />
 
-      <button type="submit" class="btn btn-primary">Criar</button>
+      <button type="submit" class="btn btn-primary submitformbtn">Criar</button>
     </form>
   </div>
 
@@ -99,9 +97,8 @@ form {
   border: 1px solid rgba(0, 0, 0, 0.178);
 }
 
-button {
+.submitformbtn {
   width: 150px;
-
   margin: auto;
   margin-top: 1rem;
 }

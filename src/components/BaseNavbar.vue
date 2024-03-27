@@ -23,11 +23,11 @@ import { RouterLink } from 'vue-router'
         <ul class="navbar-nav">
           <li class="nav-item">
             <RouterLink class="nav-link active" aria-current="page" to="/detalhes">
-              Dashboard
+              Ver produtos
             </RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink class="nav-link" to="/">Produtos</RouterLink>
+            <RouterLink class="nav-link" to="/">Gerenciar estoque</RouterLink>
           </li>
         </ul>
       </div>

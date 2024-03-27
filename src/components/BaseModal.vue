@@ -18,16 +18,18 @@ const editProductById = async () => {
   const productToEdit = {
     name: newName.value,
     price: parseFloat(newPrice.value),
-    inStock: parseFloat(newStock.value),
-    imageUrl: 'teste',
-    description: 'teste'
+    inStock: parseFloat(newStock.value)
   }
 
-  try {
-    await editProduct(props.product.id, productToEdit)
-    console.log(productToEdit)
-  } catch (error) {
-    console.log('erro ao editar produto: ', error)
+  if (newName.value === '' || newPrice.value === '' || newStock.value === '') {
+    alert('Preencha os campos corretamente')
+  } else {
+    try {
+      await editProduct(props.product.id, productToEdit)
+      console.log(productToEdit)
+    } catch (error) {
+      console.log('erro ao editar produto: ', error)
+    }
   }
 }
 </script>
@@ -75,7 +77,14 @@ const editProductById = async () => {
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" @click="editProductById()">Salvar</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            @click="editProductById()"
+          >
+            Salvar
+          </button>
         </div>
       </div>
     </div>
