@@ -1,5 +1,6 @@
 // import api from '@/api/index.js'
-import axios from 'axios'
+
+import api from '@/api'
 import { defineStore } from 'pinia'
 
 export const useProductsStore = defineStore({
@@ -13,11 +14,9 @@ export const useProductsStore = defineStore({
     async getProducts() {
       try {
         console.log('Chamando dados da requisição... ')
-        const res = await axios.get('http://localhost:3000/products')
+        const res = await api.projects.getProducts()
         this.productsArr = res.data
-        //console.log('data:', res.data)
-        //console.log('array produtos', this.productsArr)
-        return res.data
+        console.log(res)
       } catch (error) {
         console.log('Erro ao fazer get. ', error)
       }
@@ -25,10 +24,28 @@ export const useProductsStore = defineStore({
 
     async createProduct(product) {
       try {
-        await axios.post('http://localhost:3000/products', product)
-        this.getProducts()
+        await api.projects.createProduct(product)
+        await this.getProducts()
       } catch (error) {
         console.log('Erro ao criar produto: ', error)
+      }
+    },
+
+    async deleteProduct(id) {
+      try {
+        await api.projects.deleteProduct(id)
+        await this.getProducts()
+      } catch (error) {
+        console.log('Erro ao deletar produto: ', error)
+      }
+    },
+
+    async editProduct(id, newProduct) {
+      try {
+        await api.projects.editProduct(id, newProduct)
+        await this.getProducts()
+      } catch (error) {
+        console.log('Erro ao editar produto: ', error)
       }
     }
   }

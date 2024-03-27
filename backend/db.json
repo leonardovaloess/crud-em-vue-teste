@@ -1,16 +1,28 @@
 {
   "products": [
     {
-      "id": "1",
-      "name": "geladeira",
-      "price": "2000",
-      "inStock": "20"
+      "id": "f808",
+      "name": "teste",
+      "price": 1,
+      "inStock": 1,
+      "description": "teste",
+      "imageUrl": "teste"
     },
     {
-      "id": "2",
-      "name": "iphone",
-      "price": "7000",
-      "inStock": "20"
+      "name": "mudando aqui",
+      "price": 1,
+      "inStock": 1,
+      "imageUrl": "teste",
+      "description": "teste",
+      "id": "0e9a"
+    },
+    {
+      "id": "02e6",
+      "name": "teste",
+      "price": 3,
+      "inStock": 3,
+      "description": "teste",
+      "imageUrl": "teste"
     }
   ]
 }

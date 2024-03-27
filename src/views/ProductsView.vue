@@ -1,47 +1,55 @@
 <script setup>
-import BaseInputContainer from '@/components/BaseInputContainer.vue'
 import BaseTable from '@/components/BaseTable.vue'
-
+import BaseTeste from '@/components/BaseTeste.vue'
 import { useProductsStore } from '@/stores/products.js'
-import { onMounted, reactive, ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
+import { onMounted, ref } from 'vue'
 
 const productsStore = useProductsStore()
 
 const { getProducts, createProduct } = productsStore
+const { productsArr } = storeToRefs(productsStore)
 
-const productsArr = ref([])
-
-const productName = reactive('')
-const productPrice = reactive(0)
-const productStock = reactive(0)
+const productName = ref('')
+const productPrice = ref(0)
+const productStock = ref(0)
 
 const initProducts = async () => {
-  productsArr.value = await getProducts()
+  await getProducts()
 }
 
 const onSubmit = async (ev) => {
   ev.preventDefault()
-
+  console.log(productName.value)
   const product = {
     name: productName.value,
-    price: productPrice.value,
-    inStock: productStock.value,
+    price: parseFloat(productPrice.value),
+    inStock: parseFloat(productStock.value),
     description: 'teste',
     imageUrl: 'teste'
   }
 
-  await createProduct(product)
+  if (productName.value === '' || productPrice.value === 0 || productStock.value === 0) {
+    alert('Preencha os dados corretamente')
+  } else {
+    try {
+      await createProduct(product)
 
-  // Correção aqui: atribuir os valores individualmente para limpar os campos do formulário
+      //Atualizando array:
+      // await initProducts()
+
+      productName.value = ''
+      productPrice.value = 0
+      productStock.value = 0
+    } catch (error) {
+      console.log('Erro ao criar produto: ', error)
+    }
+  }
 }
 
 onMounted(async () => {
   await initProducts()
   console.log('array produtos no view', productsArr.value)
-})
-
-watch(productsArr, async () => {
-  await initProducts()
 })
 </script>
 
@@ -49,9 +57,27 @@ watch(productsArr, async () => {
   <div class="form-container">
     <form @submit="onSubmit">
       <h1>Listar Produto</h1>
-      <BaseInputContainer name="Nome" type="text" :model="productName" v-model="productName" />
-      <BaseInputContainer name="Preço" type="number" :model="productPrice" />
-      <BaseInputContainer name="Estoque" type="number" :model="productStock" />
+      <BaseTeste
+        name="Nome do Produto"
+        type="text"
+        @atualizado="(e) => (productName = e)"
+        :first-value="productName"
+      />
+
+      <BaseTeste
+        name="Preço"
+        type="number"
+        @atualizado="(e) => (productPrice = e)"
+        :first-value="productPrice"
+      />
+
+      <BaseTeste
+        name="Estoque"
+        type="number"
+        @atualizado="(e) => (productStock = e)"
+        :first-value="productStock"
+      />
+
       <button type="submit" class="btn btn-primary">Criar</button>
     </form>
   </div>

@@ -2,9 +2,9 @@ import axios from 'axios'
 
 import ProjectsService from '@/api/services/products'
 
-const baseUrl = 'http://localhost:3000'
+const baseURL = 'http://localhost:3000'
 
-const httpClient = axios.create({ baseUrl })
+const httpClient = axios.create({ baseURL })
 
 export default {
   projects: ProjectsService(httpClient)
