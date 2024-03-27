@@ -5,6 +5,12 @@
       "name": "geladeira",
       "price": "2000",
       "inStock": "20"
+    },
+    {
+      "id": "2",
+      "name": "iphone",
+      "price": "7000",
+      "inStock": "20"
     }
   ]
 }

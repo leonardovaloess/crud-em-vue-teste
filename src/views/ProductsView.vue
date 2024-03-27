@@ -1,33 +1,58 @@
 <script setup>
 import BaseInputContainer from '@/components/BaseInputContainer.vue'
 import BaseTable from '@/components/BaseTable.vue'
+
 import { useProductsStore } from '@/stores/products.js'
-import { onMounted, ref } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 
 const productsStore = useProductsStore()
 
-const { getProducts } = productsStore
+const { getProducts, createProduct } = productsStore
 
 const productsArr = ref([])
 
+const productName = reactive('')
+const productPrice = reactive(0)
+const productStock = reactive(0)
+
 const initProducts = async () => {
   productsArr.value = await getProducts()
+}
+
+const onSubmit = async (ev) => {
+  ev.preventDefault()
+
+  const product = {
+    name: productName.value,
+    price: productPrice.value,
+    inStock: productStock.value,
+    description: 'teste',
+    imageUrl: 'teste'
+  }
+
+  await createProduct(product)
+
+  // Correção aqui: atribuir os valores individualmente para limpar os campos do formulário
 }
 
 onMounted(async () => {
   await initProducts()
   console.log('array produtos no view', productsArr.value)
 })
+
+watch(productsArr, async () => {
+  await initProducts()
+})
 </script>
 
 <template>
   <div class="form-container">
-    <form>
+    <form @submit="onSubmit">
       <h1>Listar Produto</h1>
-      <BaseInputContainer name="Nome" />
-      <BaseInputContainer name="Preço" />
-      <BaseInputContainer name="Estoque" />
-      <button type="button" class="btn btn-primary">Criar</button>
+      <BaseInputContainer name="Nome" type="text" :model="productName" v-model="productName" />
+      <BaseInputContainer name="Preço" type="number" :model="productPrice" />
+      <BaseInputContainer name="Estoque" type="number" :model="productStock" />
+      <button type="submit" class="btn btn-primary">Criar</button>
     </form>
   </div>
 

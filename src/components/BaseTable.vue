@@ -16,9 +16,9 @@ const props = defineProps({
           <th scope="col">deletar</th>
         </tr>
       </thead>
-      <tbody v-for="product in props.array" :key="product.id">
+      <tbody v-for="product in props.array" :key="product._id">
         <tr>
-          <th scope="row">{{ product.id }}</th>
+          <th scope="row">{{ product._id }}</th>
           <td>{{ product.name }}</td>
           <td>{{ product.price }}</td>
           <td>{{ product.inStock }}</td>

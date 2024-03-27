@@ -21,6 +21,15 @@ export const useProductsStore = defineStore({
       } catch (error) {
         console.log('Erro ao fazer get. ', error)
       }
+    },
+
+    async createProduct(product) {
+      try {
+        await axios.post('http://localhost:3000/products', product)
+        this.getProducts()
+      } catch (error) {
+        console.log('Erro ao criar produto: ', error)
+      }
     }
   }
 })

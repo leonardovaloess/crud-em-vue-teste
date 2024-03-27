@@ -16,6 +16,6 @@ import BaseNavbar from '@/components/BaseNavbar.vue'
 main {
   padding: 2rem;
   background-color: #f4f4f4;
-  height: 100vh;
+  min-height: 100vh;
 }
 </style>

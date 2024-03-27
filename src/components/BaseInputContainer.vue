@@ -1,15 +1,20 @@
 <script setup>
+import { defineProps } from 'vue'
+import { defineEmits } from 'vue'
 const props = defineProps({
-  model: String,
-  name: String
+  name: String,
+  type: String
 })
+
+// avisa componente pai que ouve alterações no input
 </script>
 
 <template>
   <div class="inputcontainer">
     <label>{{ props.name }}</label>
-    <input type="text" :v-model="props.model" />
+    <input :type="props.type" />
   </div>
+  <p>{{ props.model }}</p>
 </template>
 
 <style>
