@@ -25,10 +25,10 @@
       "inStock": 25
     },
     {
-      "id": "3e9f",
-      "name": "produto5",
+      "name": "produto5555",
       "price": 500,
-      "inStock": 12
+      "inStock": 12,
+      "id": "3e9f"
     }
   ]
 }

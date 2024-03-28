@@ -1,36 +1,37 @@
 <script setup>
-import BaseDashboardCard from '@/components/BaseDashboardCard.vue'
-import BaseTableProducts from '@/components/BaseTableProducts.vue'
+import BaseGraph from '@/components/BaseGraph.vue'
 import { useProductsStore } from '@/stores/products'
 import { storeToRefs } from 'pinia'
-import { onMounted, ref } from 'vue'
-
+import { onMounted } from 'vue'
+import { ref } from 'vue'
 const productStore = useProductsStore()
 
-const { getProducts, lowQuantityProductsArr } = productStore
+const { getProducts } = productStore
 const { productsArr } = storeToRefs(productStore)
 
-const openTable = ref(false)
+const datasExpensiveProducts = ref({
+  labels: ['produto1, produto2, produto3']
+})
 
-const openTableFunc = () => {
-  openTable.value = !openTable.value
-}
+const datasets = ref([
+  {
+    label: 'Data one',
+    backgroundcolor: '#f87979',
+    data: [40, 20, 12]
+  }
+])
 onMounted(async () => {
   await getProducts()
-  console.log('low quantity array: ', lowQuantityProductsArr.value)
   console.log('produtos: ', productsArr.value)
 })
 </script>
 
 <template>
   <div class="dashboard-container">
-    <h1>Produtos</h1>
-    <div class="cards-container" @click="openTableFunc">
-      <BaseDashboardCard title="Quantidade total listada" :quantity="productsArr.length" />
+    <h1>Gráficos</h1>
+    <div>
+      <BaseGraph />
     </div>
-  </div>
-  <div v-if="openTable" class="mt-5">
-    <BaseTableProducts :array="productsArr" />
   </div>
 </template>
 

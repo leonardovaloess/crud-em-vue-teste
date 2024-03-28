@@ -1,48 +1,18 @@
 <script setup>
 import BaseTable from '@/components/BaseTable.vue'
 import BaseTeste from '@/components/BaseTeste.vue'
+import BaseModalCreateProduct from '@/components/BaseModalCreateProduct.vue'
 import { useProductsStore } from '@/stores/products.js'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 
 const productsStore = useProductsStore()
 
-const { getProducts, createProduct } = productsStore
+const { getProducts } = productsStore
 const { productsArr } = storeToRefs(productsStore)
-
-const productName = ref('')
-const productPrice = ref(0)
-const productStock = ref(0)
 
 const initProducts = async () => {
   await getProducts()
-}
-
-const onSubmit = async (ev) => {
-  ev.preventDefault()
-  console.log(productName.value)
-  const product = {
-    name: productName.value,
-    price: parseFloat(productPrice.value),
-    inStock: parseFloat(productStock.value),
-  }
-
-  if (productName.value === '' || productPrice.value === 0 || productStock.value === 0) {
-    alert('Preencha os dados corretamente')
-  } else {
-    try {
-      await createProduct(product)
-
-      //Atualizando array:
-      // await initProducts()
-
-      productName.value = ''
-      productPrice.value = 0
-      productStock.value = 0
-    } catch (error) {
-      console.log('Erro ao criar produto: ', error)
-    }
-  }
 }
 
 onMounted(async () => {
@@ -52,40 +22,17 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="form-container">
-    <form @submit="onSubmit">
-      <h1>Listar Produto</h1>
-      <BaseTeste
-        name="Nome do Produto"
-        type="text"
-        @atualizado="(e) => (productName = e)"
-        :first-value="productName"
-      />
-
-      <BaseTeste
-        name="Preço"
-        type="number"
-        @atualizado="(e) => (productPrice = e)"
-        :first-value="productPrice"
-      />
-
-      <BaseTeste
-        name="Estoque"
-        type="number"
-        @atualizado="(e) => (productStock = e)"
-        :first-value="productStock"
-      />
-
-      <button type="submit" class="btn btn-primary submitformbtn">Criar</button>
-    </form>
-  </div>
-
-  <div class="mt-5">
+  <h1>Produtos</h1>
+  <div class="mt-3 products-container">
+    <BaseModalCreateProduct />
+    <button class="btn createBtn" data-bs-toggle="modal" data-bs-target="#create-modal">
+      Criar produto
+    </button>
     <BaseTable :array="productsArr" />
   </div>
 </template>
 
-<style>
+<style scoped>
 form {
   display: flex;
   flex-direction: column;
@@ -97,6 +44,28 @@ form {
   border: 1px solid rgba(0, 0, 0, 0.178);
 }
 
+h1 {
+  text-align: center;
+}
+
+.products-container {
+  position: relative;
+  padding-top: 2rem;
+}
+
+.createBtn {
+  position: absolute;
+  padding: 0;
+  width: 150px;
+  font-size: 15px;
+  right: 10.2%;
+  top: 0;
+  border: 1px solid rgba(0, 0, 0, 0.24);
+}
+
+.createBtn:hover {
+  background-color: rgb(221, 221, 221);
+}
 .submitformbtn {
   width: 150px;
   margin: auto;

@@ -5,9 +5,7 @@ import { RouterLink } from 'vue-router'
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary p-4">
     <div class="container-fluid">
-      <RouterLink to="/" class="home-link">
-        <h1>CRUD LEO</h1>
-      </RouterLink>
+      <h1>CRUD LEO</h1>
       <button
         class="navbar-toggler"
         type="button"
@@ -22,12 +20,10 @@ import { RouterLink } from 'vue-router'
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <RouterLink class="nav-link active" aria-current="page" to="/detalhes">
-              Ver produtos
-            </RouterLink>
+            <RouterLink class="links" to="/"> Dashboard </RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink class="nav-link" to="/">Gerenciar estoque</RouterLink>
+            <RouterLink class="links" to="/products">Produtos</RouterLink>
           </li>
         </ul>
       </div>
@@ -36,9 +32,19 @@ import { RouterLink } from 'vue-router'
 </template>
 
 <style>
-.home-link {
-  text-decoration: none;
+.links {
+  margin-right: 1rem;
   color: black;
+  text-decoration: none;
+}
+
+.links:hover {
+  color: rgb(0, 233, 0);
+  transition: 0.3s;
+}
+
+.actual-route-link {
+  color: rgb(0, 233, 0);
 }
 
 #navbarNav {

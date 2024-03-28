@@ -7,14 +7,15 @@ export const useProductsStore = defineStore({
   id: 'products',
 
   state: () => ({
-    productsArr: []
+    productsArr: [],
+    actualProduct: {}
   }),
 
   actions: {
     async getProducts() {
       try {
         console.log('Chamando dados da requisição... ')
-        const res = await api.projects.getProducts()
+        const res = await api.products.getProducts()
         this.productsArr = res.data
         console.log(res)
         return res
@@ -25,7 +26,7 @@ export const useProductsStore = defineStore({
 
     async createProduct(product) {
       try {
-        await api.projects.createProduct(product)
+        await api.products.createProduct(product)
         await this.getProducts()
       } catch (error) {
         console.log('Erro ao criar produto: ', error)
@@ -34,7 +35,7 @@ export const useProductsStore = defineStore({
 
     async deleteProduct(id) {
       try {
-        await api.projects.deleteProduct(id)
+        await api.products.deleteProduct(id)
         await this.getProducts()
       } catch (error) {
         console.log('Erro ao deletar produto: ', error)
@@ -43,10 +44,19 @@ export const useProductsStore = defineStore({
 
     async editProduct(id, newProduct) {
       try {
-        await api.projects.editProduct(id, newProduct)
+        await api.products.editProduct(id, newProduct)
         await this.getProducts()
       } catch (error) {
         console.log('Erro ao editar produto: ', error)
+      }
+    },
+
+    async getOneProduct(id) {
+      try {
+        const res = await api.products.getOneProduct(id)
+        this.actualProduct = res
+      } catch (error) {
+        console.log('Erro ao chamar produto: ', error)
       }
     }
   }

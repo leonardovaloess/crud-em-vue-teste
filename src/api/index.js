@@ -7,5 +7,5 @@ const baseURL = 'http://localhost:3000'
 const httpClient = axios.create({ baseURL })
 
 export default {
-  projects: ProjectsService(httpClient)
+  products: ProjectsService(httpClient)
 }

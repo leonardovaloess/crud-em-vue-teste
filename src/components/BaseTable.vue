@@ -1,6 +1,7 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import { useProductsStore } from '@/stores/products'
-import BaseModal from './BaseModal.vue'
+import BaseModalEditProduct from './BaseModalEditProduct.vue'
 
 const props = defineProps({
   array: Array
@@ -31,6 +32,7 @@ const deleteProductById = async (id) => {
           <th scope="col">Estoque</th>
           <th scope="col">deletar</th>
           <th scope="col">Editar</th>
+          <th scope="col">Info</th>
         </tr>
       </thead>
       <tbody v-for="product in props.array" :key="product.id">
@@ -60,7 +62,14 @@ const deleteProductById = async (id) => {
             >
               <i class="bi bi-pencil-square"></i>
             </button>
-            <BaseModal :product="product" />
+            <BaseModalEditProduct :product="product" />
+          </td>
+          <td>
+            <button class="btn btn-success tablebtns">
+              <RouterLink class="tableLink" :to="`/products/${product.id}`"
+                ><i class="bi bi-eye"></i
+              ></RouterLink>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -78,6 +87,9 @@ thead {
   background-color: black;
 }
 
+.tableLink {
+  color: #fff;
+}
 .tablebtns {
   width: 27px;
   border: none;
