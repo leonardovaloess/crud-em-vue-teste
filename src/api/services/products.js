@@ -11,7 +11,6 @@ export default (httpClient) => ({
   deleteProduct: (id) => {
     return httpClient.delete(`/products/${id}`)
   },
-
   editProduct: (id, data) => {
     return httpClient.put(`/products/${id}`, data)
   }

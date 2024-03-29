@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+[color-scheme='dark'] {
+  background-color: rgb(20, 20, 20);
+  color: #f4f4f4;
+
+  .navbar {
+    background: rgb(19, 19, 19);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.151);
+
+    .links {
+      color: #f4f4f4;
+      &:hover {
+        color: rgb(0, 233, 0);
+        transition: 0.3s;
+      }
+    }
+
+    .actual-route-link {
+      color: rgb(0, 233, 0);
+    }
+
+    .toggle-theme{
+      color: #ffffffb6;
+      border: 1px solid rgba(255, 255, 255, 0.473);
+
+      &:hover{
+        background-color: rgb(27, 27, 27);
+      }
+    }
+  }
+
+  .products-container {
+    .create-btn {
+      border: 1px solid rgba(255, 255, 255, 0.493);
+      color: #f4f4f493;
+
+      &:hover {
+        background-color: rgb(221, 221, 221);
+        color: black;
+        transition: 0.4s;
+      }
+    }
+  }
+
+  table {
+    width: 80%;
+    margin: auto;
+    background: none;
+
+    tr {
+      padding: 0.4rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.164);
+    }
+    td {
+      padding: 0.4rem;
+    }
+
+    th {
+      padding: 0.4rem;
+    }
+
+    .tableLink {
+      color: #fff;
+      font-size: 1rem;
+    }
+  }
+  
+  .modal-content{
+    background-color: rgb(14, 14, 14);
+    border: 0.7px solid rgba(255, 255, 255, 0.144);
+
+    .modal-header{
+      border-bottom: 0.7px solid rgba(255, 255, 255, 0.171);
+    }
+
+    .modal-footer{
+      border-top: 0.7px solid rgba(255, 255, 255, 0.171);
+    }
+
+    input{
+      background: rgba(26, 26, 26, 0.233);
+      border: 1px solid #ffffff23;
+      color: #cececece;
+    }
+  }
+}

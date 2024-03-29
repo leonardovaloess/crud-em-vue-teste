@@ -1,5 +1,10 @@
-<script>
+<template>
+  <Bar :data="props.chartData" :options="props.chartOptions" class="base-graph" />
+</template>
+
+<script setup>
 import { Bar } from 'vue-chartjs'
+import { defineProps } from 'vue'
 import {
   Chart as ChartJS,
   Title,
@@ -12,26 +17,20 @@ import {
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
-export default {
-  name: 'BarChart',
-  components: { Bar },
-  data() {
-    return {
-      chartData: {
-        labels: ['January', 'February', 'March'],
-        datasets: [{ data: [40, 20, 12] }]
-      },
-      chartOptions: {
-        responsive: true
-      }
-    }
+const props = defineProps({
+  chartData: {
+    type: Object,
+    required: true
+  },
+  chartOptions: {
+    type: Object,
+    default: () => ({})
   }
-}
+})
 </script>
 
-<template>
-  <h2>Vue CharJs</h2>
-  <div>
-    <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
-  </div>
-</template>
+<style>
+.base-graph {
+  width: 600px;
+}
+</style>

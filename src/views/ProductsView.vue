@@ -1,10 +1,9 @@
 <script setup>
 import BaseTable from '@/components/BaseTable.vue'
-import BaseTeste from '@/components/BaseTeste.vue'
 import BaseModalCreateProduct from '@/components/BaseModalCreateProduct.vue'
 import { useProductsStore } from '@/stores/products.js'
 import { storeToRefs } from 'pinia'
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 
 const productsStore = useProductsStore()
 
@@ -25,25 +24,14 @@ onMounted(async () => {
   <h1>Produtos</h1>
   <div class="mt-3 products-container">
     <BaseModalCreateProduct />
-    <button class="btn createBtn" data-bs-toggle="modal" data-bs-target="#create-modal">
+    <button class="create-btn" data-bs-toggle="modal" data-bs-target="#create-modal">
       Criar produto
     </button>
     <BaseTable :array="productsArr" />
   </div>
 </template>
 
-<style scoped>
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 50%;
-  margin: auto;
-  padding: 1rem;
-  background-color: #ffffff7c;
-  border: 1px solid rgba(0, 0, 0, 0.178);
-}
-
+<style scoped lang="scss">
 h1 {
   text-align: center;
 }
@@ -51,24 +39,24 @@ h1 {
 .products-container {
   position: relative;
   padding-top: 2rem;
+
+  
 }
 
-.createBtn {
-  position: absolute;
-  padding: 0;
-  width: 150px;
-  font-size: 15px;
-  right: 10.2%;
-  top: 0;
-  border: 1px solid rgba(0, 0, 0, 0.24);
-}
+.create-btn {
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    background: none;
+    border-radius: 1rem;
+    position: absolute;
+    padding: 0;
+    width: 150px;
+    font-size: 15px;
+    right: 10.2%;
+    top: 0;
 
-.createBtn:hover {
-  background-color: rgb(221, 221, 221);
-}
-.submitformbtn {
-  width: 150px;
-  margin: auto;
-  margin-top: 1rem;
-}
+    &:hover {
+      background-color: rgb(221, 221, 221);
+      transition: 0.4s;
+    }
+  }
 </style>

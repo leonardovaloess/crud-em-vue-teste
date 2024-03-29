@@ -1,32 +1,32 @@
 {
   "products": [
     {
-      "id": "es19",
-      "name": "produto1",
-      "price": 1,
-      "inStock": 1
+      "name": "Mouse logitech",
+      "price": 650,
+      "inStock": 15,
+      "id": "es19"
     },
     {
-      "id": "f10e",
-      "name": "produto2",
-      "price": 780,
-      "inStock": 7
+      "name": "iPhone 15",
+      "price": 6000,
+      "inStock": 7,
+      "id": "f10e"
     },
     {
-      "id": "eo10",
-      "name": "produto3",
-      "price": 50,
-      "inStock": 14
+      "name": "Macbook Air m2",
+      "price": 7900,
+      "inStock": 14,
+      "id": "eo10"
     },
     {
-      "id": "19ep",
-      "name": "produto4",
-      "price": 150,
-      "inStock": 25
+      "name": "Monitor 165hz",
+      "price": 1600,
+      "inStock": 25,
+      "id": "19ep"
     },
     {
-      "name": "produto5555",
-      "price": 500,
+      "name": "Samsumg Galaxy s24",
+      "price": 4999,
       "inStock": 12,
       "id": "3e9f"
     }

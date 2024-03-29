@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive } from 'vue'
 import { useProductsStore } from '@/stores/products.js'
 import BaseTeste from './BaseTeste.vue'
 const productsStore = useProductsStore()
@@ -58,13 +58,13 @@ const onSubmit = (ev) => {
               name="Preço"
               type="number"
               :first-value="product.price"
-              @atualizado="(e) => (product.price = e)"
+              @atualizado="(e) => (product.price = parseFloat(e))"
             ></BaseTeste>
             <BaseTeste
               name="Estoque"
               type="number"
               :first-value="product.inStock"
-              @atualizado="(e) => (product.inStock = e)"
+              @atualizado="(e) => (product.inStock = parseFloat(e))"
             ></BaseTeste>
           </div>
           <div class="modal-footer">

@@ -22,12 +22,7 @@ onMounted(async () => {
   <div class="container">
     <div class="container-box-title">
       <h1>Informações do Produto:</h1>
-      <img
-        src="https://lh3.googleusercontent.com/proxy/qSS84pq8KYGiaYDNc7iFL_MwZViJ_QRf-0RcA20tWlzewYsYE-Cyi8ka26m9MgZkcOmiJgKu41OkSn-dOr199kKLkPVjyI4iY_pdBIRMoph-MEzZyR5xnmG8MFHESYBZxO_Bm2QkGP5XyzmTqI_fmzsqVrAzwg"
-        alt="imgdefault"
-        width="300px"
-        class="mt-5"
-      />
+      <img src="../assets/defaultProductImage.png" alt="imgdefault" width="300px" class="mt-5" />
     </div>
     <div v-if="actualProduct.data">
       <div>
@@ -46,20 +41,7 @@ onMounted(async () => {
   </div>
 </template>
 
-<style>
-.info {
-  color: rgb(0, 233, 0);
-}
-
-container-box-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-img {
-  margin-left: 4rem;
-}
+<style lang="scss">
 .container {
   display: flex;
   width: 100%;
@@ -67,5 +49,13 @@ img {
   flex-direction: column;
   align-items: center;
   gap: 5rem;
+
+  img {
+    margin-left: 4rem;
+  }
+
+  .info {
+    color: rgb(0, 233, 0);
+  }
 }
 </style>

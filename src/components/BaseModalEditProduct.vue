@@ -56,6 +56,7 @@ const editProductById = async () => {
         <div class="modal-body">
           <BaseTeste
             name="Nome do Produto"
+            class="mb-2"
             type="text"
             :first-value="product.name"
             @atualizado="(e) => (newName = e)"
@@ -64,6 +65,7 @@ const editProductById = async () => {
           <BaseTeste
             name="Preço"
             type="number"
+            class="mb-2"
             :first-value="product.price"
             @atualizado="(e) => (newPrice = e)"
           ></BaseTeste>
@@ -71,6 +73,7 @@ const editProductById = async () => {
           <BaseTeste
             name="Estoque"
             type="number"
+            class="mb-1"
             :first-value="product.inStock"
             @atualizado="(e) => (newStock = e)"
           ></BaseTeste>

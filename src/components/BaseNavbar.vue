@@ -1,9 +1,14 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  toggleTheme: Function // Definindo toggleTheme como uma função
+})
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary p-4">
+  <nav class="navbar navbar-expand-lg p-4">
     <div class="container-fluid">
       <h1>CRUD LEO</h1>
       <button
@@ -27,27 +32,43 @@ import { RouterLink } from 'vue-router'
           </li>
         </ul>
       </div>
+      <button class="toggle-theme" @click="props.toggleTheme()">Dark-mode</button>
+      <!-- Usando toggleTheme como função -->
     </div>
   </nav>
 </template>
 
-<style>
-.links {
-  margin-right: 1rem;
-  color: black;
-  text-decoration: none;
-}
+<style lang="scss">
+.navbar {
+  background-color: rgb(252, 252, 252);
+  border: 1px solid rgba(0, 0, 0, 0.205);
 
-.links:hover {
-  color: rgb(0, 233, 0);
-  transition: 0.3s;
-}
+  #navbarNav {
+    margin-left: 2rem;
+  }
 
-.actual-route-link {
-  color: rgb(0, 233, 0);
-}
+  .links {
+    margin-right: 1rem;
+    color: black;
+    text-decoration: none;
 
-#navbarNav {
-  margin-left: 2rem;
+    &:hover {
+      color: rgb(0, 233, 0);
+      transition: 0.3s;
+    }
+  }
+  .actual-route-link {
+    color: rgb(0, 233, 0);
+  }
+  .toggle-theme {
+    background: none;
+    padding: 0.4rem;
+    border: 1px solid black;
+
+    &:hover {
+      background-color: rgb(233, 233, 233);
+      transition: 0.4s;
+    }
+  }
 }
 </style>

@@ -23,7 +23,7 @@ const deleteProductById = async (id) => {
 
 <template>
   <div class="table-container">
-    <table class="table">
+    <table>
       <thead>
         <tr>
           <th>ID</th>
@@ -77,25 +77,26 @@ const deleteProductById = async (id) => {
   </div>
 </template>
 
-<style>
-.table-container {
+<style lang="scss">
+table {
   width: 80%;
   margin: auto;
-}
 
-thead {
-  background-color: black;
-}
+  tr {
+    padding: 0.4rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.164);
+  }
+  td {
+    padding: 0.4rem;
+  }
 
-.tableLink {
-  color: #fff;
-}
-.tablebtns {
-  width: 27px;
-  border: none;
-  font-size: 1rem;
-  padding: 0;
-  margin: 0;
-  text-align: center;
+  th {
+    padding: 0.4rem;
+  }
+
+  .tableLink {
+    color: #fff;
+    font-size: 1rem;
+  }
 }
 </style>
