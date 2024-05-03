@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import BaseTeste from './BaseTeste.vue'
+import BaseSelect from './BaseSelect.vue'
 import { useProductsStore } from '@/stores/products'
 const props = defineProps({
   product: Object
@@ -9,24 +10,47 @@ const props = defineProps({
 const productStore = useProductsStore()
 
 const { editProduct } = productStore
+const descriptionOptions = ['Alimentação', 'Lazer', 'Contas', 'Carro', 'Outros']
+const typeOptions = ['Entrada', 'saída']
 
-const newName = ref(props.product.name)
-const newPrice = ref(props.product.price)
-const newStock = ref(props.product.inStock)
+const monthOptions = [
+  'Janeiro',
+  'Fevereiro',
+  'Março',
+  'Abril',
+  'Maio',
+  'Junho',
+  'Julho',
+  'Agosto',
+  'Setembro',
+  'Outubro',
+  'Novembro',
+  'Dezembro'
+]
+
+const newProduct = reactive({
+  nome: props.product.nome,
+  preco: props.product.preco,
+  tipo: props.product.tipo,
+  descricao: props.product.descricao,
+  mes: props.product.mes,
+  ano: props.product.ano
+})
 
 const editProductById = async () => {
-  const productToEdit = {
-    name: newName.value,
-    price: parseFloat(newPrice.value),
-    inStock: parseFloat(newStock.value)
-  }
-
-  if (newName.value === '' || newPrice.value === '' || newStock.value === '') {
+  if (
+    !newProduct.nome ||
+    newProduct.preco === 0 ||
+    !newProduct.tipo ||
+    !newProduct.descricao ||
+    !newProduct.mes ||
+    !newProduct.ano
+  ) {
     alert('Preencha os campos corretamente')
   } else {
     try {
-      await editProduct(props.product.id, productToEdit)
-      console.log(productToEdit)
+      await editProduct(props.product.id, newProduct)
+      console.log(newProduct)
     } catch (error) {
       console.log('erro ao editar produto: ', error)
     }
@@ -55,27 +79,43 @@ const editProductById = async () => {
         </div>
         <div class="modal-body">
           <BaseTeste
-            name="Nome do Produto"
-            class="mb-2"
+            class="mb-1"
+            name="Nome"
             type="text"
-            :first-value="product.name"
-            @atualizado="(e) => (newName = e)"
+            :first-value="newProduct.nome"
+            @atualizado="(e) => (newProduct.nome = e)"
           ></BaseTeste>
 
           <BaseTeste
+            class="mb-1"
             name="Preço"
             type="number"
-            class="mb-2"
-            :first-value="product.price"
-            @atualizado="(e) => (newPrice = e)"
+            :first-value="newProduct.preco"
+            @atualizado="(e) => (newProduct.preco = parseFloat(e))"
           ></BaseTeste>
-
+          <BaseSelect
+            name="Tipo"
+            :options="typeOptions"
+            :first-value="newProduct.tipo"
+            @atualizado="(e) => (newProduct.tipo = e)"
+          ></BaseSelect>
+          <BaseSelect
+            name="Descrição"
+            :options="descriptionOptions"
+            :first-value="newProduct.descricao"
+            @atualizado="(e) => (newProduct.descricao = e)"
+          ></BaseSelect>
+          <BaseSelect
+            name="Mês"
+            :options="monthOptions"
+            :first-value="newProduct.mes"
+            @atualizado="(e) => (newProduct.mes = e)"
+          ></BaseSelect>
           <BaseTeste
-            name="Estoque"
-            type="number"
-            class="mb-1"
-            :first-value="product.inStock"
-            @atualizado="(e) => (newStock = e)"
+            name="Ano"
+            type="text"
+            :first-value="newProduct.ano"
+            @atualizado="(e) => (newProduct.ano = e)"
           ></BaseTeste>
         </div>
         <div class="modal-footer">

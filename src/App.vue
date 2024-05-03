@@ -1,23 +1,12 @@
 <script setup>
 import { RouterView } from 'vue-router'
 import BaseNavbar from '@/components/BaseNavbar.vue'
-
-import { useDark, useToggle } from '@vueuse/core'
-
-const isDark = useDark({
-  selector: 'main',
-  attribute: 'color-scheme',
-  valueDark: 'dark',
-  
-})
-
-const toggleDark = useToggle(isDark)
 </script>
 
 <template>
-  <main :color-scheme="isDark ? 'dark' : null">
+  <main>
     <header>
-      <BaseNavbar :toggle-theme="toggleDark" />
+      <BaseNavbar />
     </header>
     <section>
       <RouterView />

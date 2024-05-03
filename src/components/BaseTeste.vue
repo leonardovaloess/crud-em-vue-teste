@@ -12,7 +12,7 @@ const props = defineProps({
   <div class="input-container">
     <label>{{ props.name }}</label>
     <input
-      class="mt-2 p-2"
+      class="mt-2 p-2 mb-2"
       :type="props.type"
       :value="props.firstValue"
       @input="$emit('atualizado', $event.target.value)"

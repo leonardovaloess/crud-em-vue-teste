@@ -14,10 +14,8 @@ export const useProductsStore = defineStore({
   actions: {
     async getProducts() {
       try {
-        console.log('Chamando dados da requisição... ')
         const res = await api.products.getProducts()
         this.productsArr = res.data
-        console.log(res)
         return res
       } catch (error) {
         console.log('Erro ao fazer get. ', error)

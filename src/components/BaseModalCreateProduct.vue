@@ -2,25 +2,59 @@
 import { reactive } from 'vue'
 import { useProductsStore } from '@/stores/products.js'
 import BaseTeste from './BaseTeste.vue'
+import BaseSelect from './BaseSelect.vue'
 const productsStore = useProductsStore()
 
 const { createProduct } = productsStore
 
 const product = reactive({
-  name: '',
-  price: 0,
-  inStock: 0
+  nome: '',
+  preco: 0,
+  tipo: '',
+  descricao: '',
+  mes: '',
+  ano: ''
 })
 
+const descriptionOptions = ['Alimentação', 'Lazer', 'Contas', 'Carro', 'Outros']
+const typeOptions = ['Entrada', 'saída']
+
+const monthOptions = [
+  'Janeiro',
+  'Fevereiro',
+  'Março',
+  'Abril',
+  'Maio',
+  'Junho',
+  'Julho',
+  'Agosto',
+  'Setembro',
+  'Outubro',
+  'Novembro',
+  'Dezembro'
+]
 const onSubmit = (ev) => {
   ev.preventDefault()
-  if (product.name === '' || product.price === 0 || product.inStock === 0) {
+  if (
+    !product.nome ||
+    product.preco === 0 ||
+    !product.tipo ||
+    !product.descricao ||
+    !product.mes ||
+    !product.ano
+  ) {
     alert('Preencha todos os campos corretamente')
   } else {
     createProduct(product)
+    console.log(product)
   }
 
-  ;(product.name = ''), (product.price = 0), (product.inStock = 0)
+  ;(product.nome = ''),
+    (product.preco = 0),
+    (product.tipo = ''),
+    (product.descricao = ''),
+    (product.mes = 0),
+    (product.ano = '')
 }
 </script>
 
@@ -35,7 +69,7 @@ const onSubmit = (ev) => {
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Listar Produto</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Listar Despesa</h1>
           <button
             type="button"
             class="btn-close"
@@ -47,24 +81,42 @@ const onSubmit = (ev) => {
           <div class="modal-body">
             <BaseTeste
               class="mb-1"
-              name="Nome do Produto"
+              name="Nome"
               type="text"
-              :first-value="product.name"
-              @atualizado="(e) => (product.name = e)"
+              :first-value="product.nome"
+              @atualizado="(e) => (product.nome = e)"
             ></BaseTeste>
 
             <BaseTeste
               class="mb-1"
               name="Preço"
               type="number"
-              :first-value="product.price"
-              @atualizado="(e) => (product.price = parseFloat(e))"
+              :first-value="product.preco"
+              @atualizado="(e) => (product.preco = parseFloat(e))"
             ></BaseTeste>
+            <BaseSelect
+              name="Tipo"
+              :options="typeOptions"
+              :first-value="product.tipo"
+              @atualizado="(e) => (product.tipo = e)"
+            ></BaseSelect>
+            <BaseSelect
+              name="Descrição"
+              :options="descriptionOptions"
+              :first-value="product.descricao"
+              @atualizado="(e) => (product.descricao = e)"
+            ></BaseSelect>
+            <BaseSelect
+              name="Mês"
+              :options="monthOptions"
+              :first-value="product.mes"
+              @atualizado="(e) => (product.mes = e)"
+            ></BaseSelect>
             <BaseTeste
-              name="Estoque"
-              type="number"
-              :first-value="product.inStock"
-              @atualizado="(e) => (product.inStock = parseFloat(e))"
+              name="Ano"
+              type="text"
+              :first-value="product.ano"
+              @atualizado="(e) => (product.ano = e)"
             ></BaseTeste>
           </div>
           <div class="modal-footer">

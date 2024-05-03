@@ -10,7 +10,7 @@ const props = defineProps({
 <template>
   <nav class="navbar navbar-expand-lg p-4">
     <div class="container-fluid">
-      <h1>CRUD LEO</h1>
+      <h1>CONTROLE FINANCEIRO</h1>
       <button
         class="navbar-toggler"
         type="button"
@@ -25,14 +25,14 @@ const props = defineProps({
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <RouterLink class="links" to="/"> Dashboard </RouterLink>
+            <RouterLink class="links" to="/">Dashboard</RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink class="links" to="/products">Produtos</RouterLink>
+            <RouterLink class="links" to="/despesas">Despesas</RouterLink>
           </li>
         </ul>
       </div>
-      <button class="toggle-theme" @click="props.toggleTheme()">Dark-mode</button>
+
       <!-- Usando toggleTheme como função -->
     </div>
   </nav>

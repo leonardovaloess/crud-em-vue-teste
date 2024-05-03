@@ -10,84 +10,95 @@ const { getProducts } = productStore
 const { productsArr } = storeToRefs(productStore)
 
 const productsArrPriceOrder = ref([])
-const productsArrStockOrder = ref([])
 
 const chartDataPrice = ref({})
-const chartDataStock = ref({})
+const chartDataMonths = ref({})
 
 const chartOptions = {
   responsive: true
 }
 
-onMounted(async () => {
-  await getProducts()
-  console.log('produtos: ', productsArr.value)
+const initGraphs = () => {
+  productsArrPriceOrder.value = [...productsArr.value].sort((a, b) => a.preco - b.preco)
 
-  productsArrPriceOrder.value = [...productsArr.value].sort((a, b) => b.price - a.price)
-  productsArrStockOrder.value = [...productsArr.value].sort((a, b) => b.inStock - a.inStock)
+  const labelsPrice = productsArrPriceOrder.value.map((product) => product.nome)
 
   chartDataPrice.value = {
-    labels: [
-      productsArrPriceOrder.value[4].name,
-      productsArrPriceOrder.value[3].name,
-      productsArrPriceOrder.value[2].name,
-      productsArrPriceOrder.value[1].name,
-      productsArrPriceOrder.value[0].name
-    ],
+    labels: labelsPrice,
     datasets: [
       {
         label: 'Preço (menor - maior)',
         backgroundColor: 'rgba(0, 233, 0, 0.31)',
-        data: [
-          productsArrPriceOrder.value[4].price,
-          productsArrPriceOrder.value[3].price,
-          productsArrPriceOrder.value[2].price,
-          productsArrPriceOrder.value[1].price,
-          productsArrPriceOrder.value[0].price
-        ]
+        data: productsArrPriceOrder.value.map((product) => product.preco)
       }
     ]
   }
 
-  chartDataStock.value = {
-    labels: [
-      productsArrStockOrder.value[4].name,
-      productsArrStockOrder.value[3].name,
-      productsArrStockOrder.value[2].name,
-      productsArrStockOrder.value[1].name,
-      productsArrStockOrder.value[0].name
-    ],
-    datasets: [
-      {
-        label: 'Estoque (menor - maior)',
-        backgroundColor: 'rgba(0, 172, 252, 0.325)',
-        data: [
-          productsArrStockOrder.value[4].inStock,
-          productsArrStockOrder.value[3].inStock,
-          productsArrStockOrder.value[2].inStock,
-          productsArrStockOrder.value[1].inStock,
-          productsArrStockOrder.value[0].inStock
-        ]
-      }
-    ]
-  }
+  // Agrupar os produtos filtrados por mês e somar os preços
+  const dataByMonth = {}
+  productsArr.value.forEach((product) => {
+    const month = product.mes
+    const price = product.preco
+    const type = product.tipo
 
-  console.log('array ordenado por preço: ', productsArrPriceOrder.value)
-  console.log('array ordenado por estoque: ', productsArrStockOrder.value)
+    // Inicializar o objeto para o mês, se ainda não estiver presente
+    if (!dataByMonth[month]) {
+      dataByMonth[month] = { Entrada: 0, saída: 0 }
+    }
+
+    // Incrementar o preço correspondente ao tipo de produto (Entrada ou Saída)
+    dataByMonth[month][type] += price
+  })
+
+  // Criar os rótulos e dados do gráfico
+  const sortedMonths = Object.keys(dataByMonth).sort((a, b) => {
+    const monthsOrder = {
+      Janeiro: 1,
+      Fevereiro: 2,
+      Março: 3,
+      Abril: 4,
+      Maio: 5,
+      Junho: 6,
+      Julho: 7,
+      Agosto: 8,
+      Setembro: 9,
+      Outubro: 10,
+      Novembro: 11,
+      Dezembro: 12
+    }
+    return monthsOrder[a] - monthsOrder[b]
+  })
+
+  const datasets = Object.keys(dataByMonth[sortedMonths[0]]).map((type) => {
+    return {
+      label: type,
+      backgroundColor: type === 'Entrada' ? 'rgba(0, 233, 0, 0.31)' : 'rgba(255, 0, 0, 0.336)',
+      data: sortedMonths.map((month) => dataByMonth[month][type])
+    }
+  })
+
+  // Passar os dados para o componente do gráfico
+  chartDataMonths.value = {
+    labels: sortedMonths,
+    datasets: datasets
+  }
+}
+
+onMounted(async () => {
+  await getProducts()
+
+  initGraphs()
 })
 </script>
 
 <template>
   <div class="dashboard-container">
-    <h1>Gráficos</h1>
     <div class="graphs-container">
       <div v-if="productsArrPriceOrder.length > 0">
-        <h2>Preço</h2>
-        <BaseGraph :chartData="chartDataPrice" :chartOptions="chartOptions" />
-      </div>
-      <div v-if="productsArrStockOrder.length > 0">
-        <h2>Estoque</h2>
-        <BaseGraph :chartData="chartDataStock" :chartOptions="chartOptions" />
+        <div>
+          <h2 class="mb-5">Entradas / Saídas Mensais</h2>
+          <BaseGraph :chartData="chartDataMonths" :chartOptions="chartOptions" />
+        </div>
       </div>
     </div>
   </div>

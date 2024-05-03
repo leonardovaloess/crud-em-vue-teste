@@ -4,7 +4,7 @@ import { useProductsStore } from '@/stores/products'
 import BaseModalEditProduct from './BaseModalEditProduct.vue'
 
 const props = defineProps({
-  array: Array
+  array: [Array, Promise]
 })
 
 const productsStore = useProductsStore()
@@ -29,18 +29,25 @@ const deleteProductById = async (id) => {
           <th>ID</th>
           <th scope="col">Nome</th>
           <th scope="col">Preço</th>
-          <th scope="col">Estoque</th>
-          <th scope="col">deletar</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Mês</th>
+          <th scope="col">Ano</th>
+          <th scope="col">Excluir</th>
           <th scope="col">Editar</th>
-          <th scope="col">Info</th>
+          <th scope="col">Ver</th>
         </tr>
       </thead>
       <tbody v-for="product in props.array" :key="product.id">
         <tr>
           <th scope="row">{{ product.id }}</th>
-          <td>{{ product.name }}</td>
-          <td>R$ {{ product.price }}</td>
-          <td>{{ product.inStock }}</td>
+          <td>{{ product.nome }}</td>
+          <td>R$ {{ product.preco }}</td>
+          <td :class="product.tipo === 'saída' ? 'saida' : 'entrada'">{{ product.tipo }}</td>
+          <td>{{ product.descricao }}</td>
+          <td>{{ product.mes }}</td>
+          <td>{{ product.ano }}</td>
+
           <td>
             <button
               class="btn btn-danger tablebtns"
@@ -66,7 +73,7 @@ const deleteProductById = async (id) => {
           </td>
           <td>
             <button class="btn btn-success tablebtns">
-              <RouterLink class="tableLink" :to="`/products/${product.id}`"
+              <RouterLink class="tableLink" :to="`/despesas/${product.id}`"
                 ><i class="bi bi-eye"></i
               ></RouterLink>
             </button>
@@ -79,7 +86,7 @@ const deleteProductById = async (id) => {
 
 <style lang="scss">
 table {
-  width: 80%;
+  width: 90%;
   margin: auto;
 
   tr {
@@ -97,6 +104,13 @@ table {
   .tableLink {
     color: #fff;
     font-size: 1rem;
+  }
+  .entrada {
+    color: lime;
+  }
+
+  .saida {
+    color: red;
   }
 }
 </style>
